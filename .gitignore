@@ -1,0 +1,5 @@
+tools/
+.vscode/
+**/.vscode/**
+**/mysql-connector-java-8.0.27.jar
+**/target
