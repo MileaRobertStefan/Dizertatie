@@ -1,0 +1,81 @@
+<form #createForm="ngForm" (ngSubmit)="onSubmit()" class="container">
+    <mat-label>
+        <h2>Create a new Product</h2>
+    </mat-label>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Title</mat-label>
+        <input required matInput placeholder="Product Title" name="title" [(ngModel)]="product.title">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea required matInput placeholder="Product Description" name="description"
+            [(ngModel)]="product.description" style="height: 10em;"></textarea>
+    </mat-form-field>
+
+    <div class="form-row">
+        <mat-form-field appearance="fill">
+            <mat-label>Price</mat-label>
+            <input required matInput placeholder="Product Price" name="price" [(ngModel)]="product.price" type="number"
+                min="0">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Currency</mat-label>
+            <mat-select required placeholder="Product Currency" name="currency" [(ngModel)]="product.currency">
+                <mat-option *ngFor="let currency of currencies" [value]="currency">
+                    {{ currency }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Category</mat-label>
+            <input required matInput placeholder="Product Category" name="category" [(ngModel)]="product.category">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Brand</mat-label>
+            <input matInput placeholder="Product Brand" name="brand" [(ngModel)]="product.brand">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+
+            <mat-label>Condition</mat-label>
+            <mat-select required placeholder="Product Condition" name="condition" [(ngModel)]="product.condition">
+                <mat-option *ngFor="let condition of conditions" [value]="condition">
+                    {{ condition }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <mat-form-field class="example-full-width form-row" appearance="fill">
+        <mat-label>Photos</mat-label>
+        <input type="file" accept="image/*" style="display:none" #fileInput (change)="onFileSelected($event)">
+        <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Photo</button>
+        or
+        <mat-form-field appearance="fill" class="example-full-width">
+            <mat-label>Paste Photo Link</mat-label>
+            <input type="url" matInput name="photo_link" placeholder="Paste Photo Link" [(ngModel)]="photoUrl"
+                (blur)="addPhotoUrl()">
+        </mat-form-field>
+
+        <div class="photo-list">
+            <div *ngFor="let url of product.photos; let i=index" class="photo-item">
+                <img [src]="url" alt="Photo {{i+1}}" width="100" height="100">
+                <button mat-icon-button color="warn" (click)="removePhotoUrl(i)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-form-field>
+
+    <button type="submit" mat-raised-button color="accent">Create</button>
+
+</form>
+
+<app-product-detail [product]="product"></app-product-detail>

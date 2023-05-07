@@ -1,0 +1,34 @@
+<form #createForm="ngForm" class="container p-3">
+
+    <mat-label>
+        <h2>Create a new account</h2>
+    </mat-label>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> First name </mat-label>
+        <textarea required matInput placeholder="Jhon" name="firstName" [(ngModel)]="firstName"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> Last name </mat-label>
+        <textarea required matInput placeholder="Doe" name="lastName" [(ngModel)]="lastName"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> Email <address></address> </mat-label>
+        <input type="email" name="email" ngModel email required matInput placeholder="test@exp.com" [(ngModel)]="email">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> Password <address></address> </mat-label>
+        <input type="password" name="password" ngModel required matInput [(ngModel)]="password">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label> Telephone </mat-label>
+        <input type="tel" required matInput placeholder="0000000000" name="telephone" [(ngModel)]="telephone">
+    </mat-form-field>
+
+    <button type="button" mat-raised-button color="accent" (click)="submit(createForm)">Registrate user!</button>
+
+</form>

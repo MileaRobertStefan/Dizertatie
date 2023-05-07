@@ -1,0 +1,42 @@
+<mat-card class="product-card">
+    <div class="product-image">
+        <img src="{{ product.photos[0] }}" alt="{{ product.title }}" class="product-photo" />
+    </div>
+
+    <div class="product-details">
+        <mat-card-title>{{ product.title }}</mat-card-title>
+
+        <div class="product-info-list">
+            <p class="product-info"><strong>Price:</strong> {{ product.price }} {{ product.currency }}</p>
+            <p class="product-info"><strong>Category:</strong> {{ product.category }}</p>
+            <p class="product-info"><strong>Brand:</strong> {{ product.brand }}</p>
+            <p class="product-info"><strong>Condition:</strong> {{ product.condition }}</p>
+        </div>
+
+        <mat-accordion>
+            <mat-expansion-panel data-testid="product-description">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h2>Description:</h2>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p data-testid="product-description-text" class="product-description">{{ product.description }}</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <h2>Photos:</h2>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="product-image-container" *ngFor="let photo of product.photos">
+                    <img src="{{ photo }}" alt="{{ product.title }}" class="product-photo" />
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-action-row>
+            <button mat-raised-button color="primary" (click)="addToCart()">Add to Cart</button>
+        </mat-action-row>
+    </div>
+</mat-card>
