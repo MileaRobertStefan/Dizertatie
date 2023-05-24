@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+spec:
+  replicas: {{ .Values.replicaCount | default 2 }}
+  selector:
+    matchLabels:
+      app: userservice
+  template:
+    metadata:
+      labels:
+        app: userservice
+      annotations:
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "*"
+    spec:
+      containers:
+        - name: userservice-app
+          imagePullPolicy: Never
+          image: userservice:latest # Specify the name of the Docker image you built earlier
+          resources:
+            limits:
+              cpu: "{{ .Values.container.resources.limits.cpu }}"
+              memory: "{{ .Values.container.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.container.resources.requests.cpu }}"
+              memory: "{{ .Values.container.resources.requests.memory }}"
+          ports:
+            - containerPort: {{ .Values.container.containerPort }}

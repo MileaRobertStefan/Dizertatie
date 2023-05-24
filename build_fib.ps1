@@ -1,0 +1,1 @@
+docker build -t fibserver:latest ./fib

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice
+spec:
+  replicas: {{ .Values.replicaCount | default 2 }}
+  selector:
+    matchLabels:
+      app: productservice
+  template:
+    metadata:
+      labels:
+        app: productservice
+      annotations:
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "*"
+    spec:
+      containers:
+        - name: productservice-app
+          imagePullPolicy: Never
+          image: productservice:latest # Specify the name of the Docker image you built earlier
+          resources:
+            limits:
+              cpu: "{{ .Values.container.resources.limits.cpu }}"
+              memory: "{{ .Values.container.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.container.resources.requests.cpu }}"
+              memory: "{{ .Values.container.resources.requests.memory }}"
+          ports:
+            - containerPort: {{ .Values.container.containerPort }}

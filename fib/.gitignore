@@ -1,0 +1,35 @@
+# .gitignore
+
+# Compiled output
+/_build/
+/cover/
+/deps/
+/*.ez/
+/erl_crash.dump
+/.elixir_ls/
+
+# Dependencies
+/priv/static/*
+/priv/uploads/*
+
+# Documentation
+/doc/
+
+# Testing
+/.hindsight/
+/.mox/
+
+# Environment variables
+/.env*
+.env*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.svg
+
+# System files
+.DS_Store
+Thumbs.db
