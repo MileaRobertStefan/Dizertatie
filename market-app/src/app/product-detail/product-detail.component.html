@@ -36,7 +36,8 @@
         </mat-accordion>
 
         <mat-action-row>
-            <button mat-raised-button color="primary" (click)="addToCart()">Add to Cart</button>
+            <button mat-raised-button color="accent" (click)="delete()" data-testid="delete">Delete</button>
+            <button mat-raised-button color="primary" (click)="addToCart()" data-testid="add-to-cart">Add to Cart</button>
         </mat-action-row>
     </div>
 </mat-card>

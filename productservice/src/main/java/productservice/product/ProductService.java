@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,7 +66,13 @@ public class ProductService {
     }
 
     public boolean deleteProduct(Long id) {
-        productRepository.deleteById(id);
-        return true;
+//        productRepository.deleteById(id);
+        Optional<Product> p = productRepository.findById(id);
+        if( p.isPresent()){
+            productRepository.delete(p.get());
+            return true;
+        }
+
+        return false;
     }
 }

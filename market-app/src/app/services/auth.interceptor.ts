@@ -17,12 +17,16 @@ export class AuthentInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         const token: string | null = sessionStorage.getItem("token")
-
+        console.log(token);
+        
         if (token) {
             req = req.clone({ withCredentials: true })
         } else {
-            this.router.navigateByUrl('/login')
-            this.snackService.error("You are not loged in!")
+            const currentUrl = this.router.url;
+            if (currentUrl !== '/login') {
+                this.router.navigateByUrl('/login')
+                this.snackService.error("You are not logged in!")
+            }
         }
 
         return next.handle(req).pipe(

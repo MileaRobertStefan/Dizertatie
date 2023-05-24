@@ -21,7 +21,8 @@ export interface Product {
     brand: string;
     condition: string;
   }
-  
+
+export type CartItem = Product & { quantity: number };
 
 export class EMPTY_TYPE {
     public static EMPTY_USER: User = {

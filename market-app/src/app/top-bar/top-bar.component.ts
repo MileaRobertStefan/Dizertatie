@@ -46,12 +46,11 @@ export class TopBarComponent implements OnInit {
     this.router.navigate(["/registration"])
   }
 
-  seeMyOffers(){
-    this.router.navigate(["/myoffers"])
+  seeCart(){
+    this.router.navigate(["/cart"])
   }
   postOffer(){
     this.router.navigate(["/new_offer"])
-
   }
 
   home(){

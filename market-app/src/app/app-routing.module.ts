@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { CreateOfferComponent } from './create-offer/create-offer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [{
   path: "",
@@ -20,6 +21,10 @@ const routes: Routes = [{
 {
   path: "new_offer",
   component: CreateOfferComponent
+},
+{
+  path: "cart",
+  component: CartComponent
 },
 { path: '**', redirectTo: '' }];
 

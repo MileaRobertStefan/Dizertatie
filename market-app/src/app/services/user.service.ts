@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject, catchError, tap, throwError } from "rxjs";
@@ -31,18 +31,25 @@ export class UserService {
         formData.set("password", password);
 
         const headers = new HttpHeaders({ 'Content-type': 'application/x-www-form-urlencoded' });
-        const body = `username=${username}&password=${password}`;
+        const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
 
-        this.http.post("http://localhost:3000/processLogin", body, { responseType: 'text', headers: headers, observe: "response", withCredentials: true }).subscribe(
-            data => {
-                if (!data) return;
+        this.http.post("http://localhost:3000/processLogin", body, {
+            responseType: 'text',
+            headers: headers,
+            observe: "response",
+            withCredentials: true
+        }).subscribe(
+            (response: HttpResponse<string>) => {
+                console.log(response)
+                if (!response) return;
 
-                const token = btoa(username + ':' + password)
-                sessionStorage.setItem('token', "Basic " + token);
+                const token = btoa(`${username}:${password}`);
+                sessionStorage.setItem('token', `Basic ${token}`);
 
-                this.snackService.info(`You are logged in!`)
+                this.snackService.info(`You are logged in!`);
                 this.router.navigate(['']);
-                const url = C.API + "user/" + username;
+
+                const url = `${C.API}user/${username}`;
 
                 this.http.get<User>(url).pipe(
                     tap((myUser: User) => {
@@ -59,11 +66,10 @@ export class UserService {
                     })
                 ).subscribe();
             },
-            erorr => {
-                console.log(erorr);
-                this.snackService.error("An error has happend!");
-            }
-        )
+            (error: HttpErrorResponse) => {
+                console.log(error);
+                this.snackService.error("An error has happened!");
+            });
     }
 
     public userObservable(): Observable<User> {

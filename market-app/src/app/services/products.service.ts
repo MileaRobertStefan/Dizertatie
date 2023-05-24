@@ -33,6 +33,7 @@ import { Product } from '../types/types';
   
     deleteProduct(id: number): Observable<Product> {
       const url = `${this.apiUrl}/${id}`;
+      console.log(url)
       return this.http.delete<Product>(url);
     }
   }

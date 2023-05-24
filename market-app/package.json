@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:e2e": "npx playwright test src/e2e/test.frontend.spec.ts"
+    "test:e2e": "npx playwright test tests/e2e/test.frontend.spec.ts --trace on",
+    "report": "npx playwright show-report"
   },
   "private": true,
   "dependencies": {

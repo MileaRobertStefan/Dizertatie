@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    sessionStorage.setItem('token', '');
+   
   }
 
   public async submit(ngForm: NgForm) {

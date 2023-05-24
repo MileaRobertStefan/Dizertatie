@@ -1,4 +1,4 @@
-& ./build_angular.ps1
+# & ./build_angular.ps1
 & ./build_userservice.ps1
 & ./build_productservice.ps1
 

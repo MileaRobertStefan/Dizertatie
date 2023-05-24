@@ -29,7 +29,11 @@
     <p *ngIf="cartItems.length === 0">Your cart is empty.</p>
     <div class="cart-summary">
       <h3>Total: {{ getTotal() }} {{ cartItems[0]?.currency || '' }}</h3>
-      <button mat-raised-button color="primary" (click)="clearCart()" [disabled]="cartItems.length === 0">Clear Cart</button>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="placeOrder()" [disabled]="cartItems.length === 0">Place Order</button>
+        <button mat-raised-button color="accent" (click)="clearCart()" [disabled]="cartItems.length === 0">Clear Cart</button>
+      </div>
     </div>
+    
   </mat-card>
   

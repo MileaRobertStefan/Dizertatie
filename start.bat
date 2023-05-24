@@ -15,3 +15,7 @@ kubectl get services
 kubectl get deployments
 kubectl get pods
 
+minikube addon enable metrics-server
+
+@REM kubectl get deployment metrics-server -n kube-system
+@REM kubectl rollout status deployment metrics-server -n kube-system
