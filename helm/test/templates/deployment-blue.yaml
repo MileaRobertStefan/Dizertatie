@@ -1,0 +1,37 @@
+{{ if .Values.blue.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "blue-green.fullname" . }}-blue
+  labels:
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app: {{ template "blue-green.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount | default 2 }}
+  selector:
+    matchLabels:
+        app: {{ template "blue-green.name" . }}
+        release: {{ .Release.Name }}
+        slot: blue
+  template:
+    metadata:
+      labels:
+        app: {{ template "blue-green.name" . }}
+        release: {{ .Release.Name }}
+        slot: blue
+    spec:
+      containers:
+        - name: {{ .Values.nameOverride}}-blue
+          imagePullPolicy: Never
+          image: {{ .Values.image.blue}}
+          resources:
+            limits:
+              cpu: "{{ .Values.container.resources.limits.cpu }}"
+              memory: "{{ .Values.container.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.container.resources.requests.cpu }}"
+              memory: "{{ .Values.container.resources.requests.memory }}"
+          ports:
+            - containerPort: {{ .Values.container.containerPort }}
+{{ end }}

@@ -1,17 +1,28 @@
+green:
+  enabled: false
+
+blue:
+  enabled: false
+
+productionSlot: blue
+
+index: hello world
+
 replicaCount: 1
 
 image:
   pullPolicy: IfNotPresent
-  tag: "productservice"
+  blue: "angular-app-image:blue"
+  green: "angular-app-image:green"
 
 imagePullSecrets: []
-nameOverride: "productservice-app"
-fullnameOverride: "productservice-chart"
+nameOverride: "market-app"
+fullnameOverride: "market-app-chart"
 
 serviceAccount:
   create: true
   annotations: {}
-  name: "productservice"
+  name: "market-app"
 
 podAnnotations: {}
 
@@ -21,22 +32,18 @@ securityContext: {}
 
 service:
   type: NodePort
-  port: 82
+  port: 80
 
 ingress:
   enabled: true
   className: ""
   annotations: {}
+  hostname: prod.localhost
+  stagehostname: stage.localhost
 
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
 
 container:
-  containerPort: 3001
+  containerPort: 4200
   resources:
     limits:
       cpu: "1"
@@ -44,7 +51,6 @@ container:
     requests:
       cpu: "0.5"
       memory: 256Mi
-
 
 autoscaling:
   enabled: true

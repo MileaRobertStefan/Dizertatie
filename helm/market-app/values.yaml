@@ -1,7 +1,7 @@
 # Default values for market-app.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-replicaCount: 2
+replicaCount: 1
 
 image:
   pullPolicy: IfNotPresent
@@ -44,8 +44,8 @@ container:
 
 autoscaling:
   enabled: true
-  minReplicas: 2
-  maxReplicas: 10
+  minReplicas: 1
+  maxReplicas: 3
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 90
 

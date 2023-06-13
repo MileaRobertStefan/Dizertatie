@@ -1,0 +1,24 @@
+{{- $fullName := .Release.Name -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-service-prod
+  labels:
+    app: {{ template "blue-green.name" . }}
+    chart: {{ template "blue-green.chart" . }}
+    release: {{ .Release.Name }}
+    k8s-app: bluegreen-prod
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.container.containerPort }}
+      targetPort:  {{ .Values.container.containerPort }}
+      protocol: TCP
+      name: http
+    - name: service-port-name
+      port: {{ .Values.service.port}}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+  selector:
+    app: {{ template "blue-green.name" . }}
+    release: {{ .Release.Name }}
+    slot: {{ .Values.productionSlot }}
